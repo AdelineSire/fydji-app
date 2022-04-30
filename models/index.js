@@ -1,4 +1,5 @@
-const JobRaw = require('./jobRaw');
-const Job = require('./job');
+import JobRaw from './jobRaw.js';
+import Job from './job.js';
+import User from './user.js';
 
-module.exports = { JobRaw, Description, Job };
+export { JobRaw, Job, User };
