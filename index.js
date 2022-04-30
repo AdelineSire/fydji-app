@@ -16,4 +16,10 @@ mongoose
 
 const app = express();
 
+app.get('/api/actions/create/jobs', async (req, res) => {
+	const dateStr = req.query.date;
+	await createJobs(dateStr);
+	res.send('New jobs have been created');
+});
+
 app.listen(process.env.PORT || 3000);
