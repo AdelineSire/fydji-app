@@ -14,30 +14,35 @@ const getYesterdayStr = () => {
 const createJobs = async (dateStr = getYesterdayStr()) => {
 	const date = new Date(dateStr);
 	const rawJobs = await JobRaw.find({ collectDate: { $gt: date } }); // collectedDate > date
-
 	rawJobs.forEach((rawJob) => {
 		const tagsString = rawJob.tags.join(' ');
-		const url = rawJob.url;
 		const strForCountKeywords = `${rawJob.title} ${tagsString} ${rawJob.description}`;
-		const keywords = countKeywords(strForCountKeywords);
-		const salary = extractSalary(rawJob.salary);
-		const source = extractHostNameFromUrl(url);
+		const keywordObjects = countKeywords(strForCountKeywords);
 
-		const job = {
-			title: rawJob.title,
-			url,
-			keywords,
-			salaryStart: salary.salaryStart,
-			salaryEnd: salary.salaryEnd,
-			company: rawJob.company,
-			city: rawJob.city,
-			source,
-			sendDate: null,
-		};
+		if (keywordObjects.length !== 0) {
+			const keywords = keywordObjects.map(
+				(keywordObject) => keywordObject.keyword
+			);
+			if (keywords.includes('react')) {
+				const salary = extractSalary(rawJob.salary);
+				const url = rawJob.url;
+				const source = extractHostNameFromUrl(url);
 
-		if (keywords.length !== 0) {
-			const newJob = new Job(job);
-			newJob.save().catch((error) => console.log('error', error));
+				const job = {
+					title: rawJob.title,
+					url,
+					keywords: keywordObjects,
+					salaryStart: salary.salaryStart,
+					salaryEnd: salary.salaryEnd,
+					company: rawJob.company,
+					city: rawJob.city,
+					source,
+					sendDate: null,
+				};
+
+				const newJob = new Job(job);
+				newJob.save().catch((error) => console.log('error', error));
+			}
 		}
 	});
 };
