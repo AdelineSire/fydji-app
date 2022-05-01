@@ -1,4 +1,4 @@
-import { User } from './models';
+import { User } from './models/index.js';
 
 const createUser = async (email) => {
 	let exists = (await User.find({ email: email }).count()) > 0;

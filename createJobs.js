@@ -1,8 +1,8 @@
-const { JobRaw, Job } = require('./models');
+import { JobRaw, Job } from './models/index.js';
 
-const countKeywords = require('./countKeywords');
-const extractSalary = require('./extractSalary');
-const extractHostNameFromUrl = require('./extractHostNameFromUrl');
+import countKeywords from './countKeywords/index.js';
+import extractSalary from './extractSalary/index.js';
+import extractHostNameFromUrl from './extractHostNameFromUrl/index.js';
 
 const getYesterdayStr = () => {
 	const DAY_IN_MS = 86400000;

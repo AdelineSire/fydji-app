@@ -5,9 +5,9 @@ import cors from 'cors';
 
 import createJobs from './createJobs.js';
 import createUser from './createUser.js';
-import sendSubscriptionEmail from './mailing/sendSubscriptionEmail';
-import sendJobsEmail from './mailing/sendJobsEmail';
-import { User, Job } from './models';
+import sendSubscriptionEmail from './mailing/sendSubscriptionEmail.js';
+import sendJobsEmail from './mailing/sendJobsEmail.js';
+import { User, Job } from './models/index.js';
 
 dotenv.config();
 const MONGODB_URI = process.env.MONGODB_URI;
