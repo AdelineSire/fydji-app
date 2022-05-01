@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/create/jobs', async (req, res) => {
+	console.log('create jobs request received');
 	const dateStr = req.query.date;
 	await createJobs(dateStr);
 	res.send('New jobs have been created');
@@ -34,6 +35,7 @@ app.get('/create/jobs', async (req, res) => {
 
 app.post('/create/user', async (req, res) => {
 	const email = req.body.email;
+	console.log('email: ', email);
 	const isGmail = email.includes('gmail');
 	await createUser(email).then(() =>
 		res.json({
@@ -56,4 +58,4 @@ app.get('/send/jobs', async (req, res) => {
 	console.log('done');
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3002);
