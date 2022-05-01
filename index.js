@@ -6,6 +6,8 @@ import cors from 'cors';
 import createJobs from './createJobs.js';
 import createUser from './createUser.js';
 import sendSubscriptionEmail from './mailing/sendSubscriptionEmail';
+import sendJobsEmail from './mailing/sendJobsEmail';
+import { User, Job } from './models';
 
 dotenv.config();
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -24,16 +26,15 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/api/actions/create/jobs', async (req, res) => {
+app.get('/create/jobs', async (req, res) => {
 	const dateStr = req.query.date;
 	await createJobs(dateStr);
 	res.send('New jobs have been created');
 });
 
-app.post('/actions/signup-email', async (req, res) => {
+app.post('/create/user', async (req, res) => {
 	const email = req.body.email;
 	const isGmail = email.includes('gmail');
-
 	await createUser(email).then(() =>
 		res.json({
 			success: true,
@@ -41,6 +42,18 @@ app.post('/actions/signup-email', async (req, res) => {
 		})
 	);
 	sendSubscriptionEmail(email);
+});
+
+app.get('/send/jobs', async (req, res) => {
+	const newJobs = await Job.find({ sendDate: null });
+	const users = await User.find({});
+	await sendJobsEmail(newJobs, users);
+	const date = new Date();
+	for (const newJob of newJobs) {
+		newJob.sendDate = date;
+		newJob.save();
+	}
+	console.log('done');
 });
 
 app.listen(process.env.PORT || 3000);
