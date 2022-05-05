@@ -5,6 +5,8 @@ import { fileURLToPath } from "url";
 
 import Handlebars from "handlebars";
 
+dotenv.config();
+
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const getJobsContent = async (jobs) => {
