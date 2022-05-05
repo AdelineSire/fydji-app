@@ -47,8 +47,6 @@ app.post("/create/user", async (req, res) => {
     })
   );
   const newJobs = await Job.find().sort({ sendDate: -1 }).limit(3);
-  const users = await User.find({});
-  // sendSubscriptionEmail(email);
   sendJobsEmail(newJobs, "Découvrez vos 1ères offres Fydji", [{ email }]);
 });
 
