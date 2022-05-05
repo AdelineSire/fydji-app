@@ -5,7 +5,6 @@ import cors from 'cors';
 
 import createJobs from './createJobs.js';
 import createUser from './createUser.js';
-import sendSubscriptionEmail from './mailing/sendSubscriptionEmail.js';
 import sendJobsEmail from './mailing/sendJobsEmail.js';
 import { User, Job } from './models/index.js';
 
