@@ -1,35 +1,33 @@
-import transporter from './transporter.js';
+import dotenv from "dotenv";
+
+import getJobsContent from "./getJobsContent.js";
+import transporter from "./transporter.js";
+
+dotenv.config();
 const GMAIL_USERNAME = process.env.GMAIL_USERNAME;
 
-const sendJobsEmail = async (jobs, users) => {
-	const extractedContent = jobs.map((job) => {
-		const keywordsArray = job.keywords;
-		const keywords = keywordsArray.map((keyword) => keyword.keyword).join(', ');
-		console.log('keywords', keywords);
-		return `<h1>${job.title}</h1><p>${keywords}</p>`;
-	});
-	const content = extractedContent.join();
-	console.log(content);
+const sendEmail = (email, subject, content) => {
+  const mailOptions = {
+    from: GMAIL_USERNAME,
+    to: email,
+    subject: subject,
+    html: content,
+  };
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log("err in transporter.sendMail: ", err);
+    } else {
+      console.log("info: ", info);
+    }
+  });
+};
 
-	const sendEmail = (email, content) => {
-		const mailOptions = {
-			from: GMAIL_USERNAME,
-			to: email,
-			subject: 'Les nouvelles offres',
-			html: content,
-		};
-		transporter.sendMail(mailOptions, (err, info) => {
-			if (err) {
-				console.log('err in transporter.sendMail: ', err);
-			} else {
-				console.log('info: ', info);
-			}
-		});
-	};
+const sendJobsEmail = async (jobs, subject = "Les nouvelles offres", users) => {
+  const content = await getJobsContent(jobs);
 
-	for (const user of users) {
-		sendEmail(user.email, content);
-	}
+  for (const user of users) {
+    sendEmail(user.email, subject, content);
+  }
 };
 
 export default sendJobsEmail;
