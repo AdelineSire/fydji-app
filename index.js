@@ -45,7 +45,9 @@ app.post('/create/user', async (req, res) => {
 		success: true,
 		isGmail: isGmail,
 	});
+	console.log('has been created', hasBeenCreated);
 	if (hasBeenCreated) {
+		console.log('has been created 2');
 		const newJobs = await Job.find().sort({ sendDate: -1 }).limit(3);
 		sendJobsEmail(newJobs, 'Découvrez vos 1ères offres Fydji', [{ email }]);
 	}
