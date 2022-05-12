@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import createJobs from './createJobs.js';
 import createUser from './createUser.js';
+import deleteUser from './deleteUser.js';
 import sendJobsEmail from './mailing/sendJobsEmail.js';
 import { User, Job } from './models/index.js';
 
@@ -39,13 +40,21 @@ app.post('/create/user', async (req, res) => {
 	const email = req.body.email;
 	console.log('email: ', email);
 	const isGmail = email.includes('gmail');
-	await createUser(email);
+	const hasBeenCreated = await createUser(email);
 	res.json({
 		success: true,
 		isGmail: isGmail,
 	});
-	const newJobs = await Job.find().sort({ sendDate: -1 }).limit(3);
-	sendJobsEmail(newJobs, 'Découvrez vos 1ères offres Fydji', [{ email }]);
+	if (hasBeenCreated) {
+		const newJobs = await Job.find().sort({ sendDate: -1 }).limit(3);
+		sendJobsEmail(newJobs, 'Découvrez vos 1ères offres Fydji', [{ email }]);
+	}
+});
+
+app.get('/unsubscribe/:email', async (req, res) => {
+	const email = req.params.email;
+	deleteUser(email);
+	res.send('User unsubscribed');
 });
 
 app.get('/send/jobs', async (req, res) => {
@@ -58,6 +67,7 @@ app.get('/send/jobs', async (req, res) => {
 		newJob.save();
 	}
 	console.log('done');
+	res.send('Jobs has been sent');
 });
 
 app.listen(process.env.PORT || 3002);
