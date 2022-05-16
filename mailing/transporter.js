@@ -4,7 +4,6 @@ import nodemailer from 'nodemailer';
 dotenv.config();
 
 const { EMAIL_PORT, EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD } = process.env;
-console.log({ EMAIL_PORT, EMAIL_HOST, EMAIL_USERNAME, EMAIL_PASSWORD });
 const transporter = nodemailer.createTransport({
 	port: EMAIL_PORT,
 	secure: true,
