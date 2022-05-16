@@ -4,11 +4,11 @@ import getJobsContent from './getJobsContent.js';
 import transporter from './transporter.js';
 
 dotenv.config();
-const GMAIL_USERNAME = process.env.GMAIL_USERNAME;
+const { EMAIL_USERNAME, EMAIL_HUMAN_NAME } = process.env;
 
 const sendEmail = (email, subject, content) => {
 	const mailOptions = {
-		from: GMAIL_USERNAME,
+		from: `${EMAIL_HUMAN_NAME} <${EMAIL_USERNAME}>`,
 		to: email,
 		subject: subject,
 		html: content,
