@@ -1,4 +1,4 @@
-import countRest from './index.js';
+import countRest from './';
 
 const rest = [
 	'rest',

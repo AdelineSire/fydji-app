@@ -9,7 +9,8 @@
 		"dev": "nodemon --watch src -e js,ts,json --exec \"npm run compile\"",
 		"build": "tsc",
 		"postbuild": "copyfiles -u 1 src/**/*.handlebars dist/",
-		"start": "node dist/index.js"
+		"start": "node dist/index.js",
+		"test": "jest src"
 	},
 	"repository": {
 		"type": "git",

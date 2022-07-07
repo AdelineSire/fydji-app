@@ -1,4 +1,4 @@
-import extractSalary from './index';
+import extractSalary from './';
 
 describe('extractSalary', () => {
 	test('if entry contains no number, return null for salaryStart and salaryEnd', () => {

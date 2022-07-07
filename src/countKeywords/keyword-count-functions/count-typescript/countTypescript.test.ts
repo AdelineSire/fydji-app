@@ -1,4 +1,4 @@
-import countTypescript from './index.js';
+import countTypescript from './';
 
 const typescript = [
 	'TYPESCRIPT',

@@ -4,7 +4,6 @@
 	"exclude": ["node_modules", "public"],
 	"compilerOptions": {
 		"target": "es2015",
-		"module": "esnext",
 		"outDir": "dist",
 		"lib": ["esnext"],
 		"moduleResolution": "node"

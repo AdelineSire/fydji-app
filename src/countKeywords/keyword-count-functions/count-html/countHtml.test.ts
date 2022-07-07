@@ -1,4 +1,4 @@
-import countHtml from './index.js';
+import countHtml from './';
 
 const html = [
 	'Html',

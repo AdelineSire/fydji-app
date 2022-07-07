@@ -1,4 +1,4 @@
-import countCss from './index.js';
+import countCss from './';
 
 const css = [
 	'css',

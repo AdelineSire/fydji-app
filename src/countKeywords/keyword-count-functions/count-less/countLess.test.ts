@@ -1,4 +1,4 @@
-import countLess from './index.js';
+import countLess from './';
 
 const less = [
 	'less',

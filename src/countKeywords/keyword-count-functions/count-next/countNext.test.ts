@@ -1,4 +1,4 @@
-import countNext from './index.js';
+import countNext from './';
 
 const next = [
 	'next',

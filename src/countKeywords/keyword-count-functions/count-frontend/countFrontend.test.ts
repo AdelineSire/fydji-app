@@ -1,4 +1,4 @@
-import countFrontend from './index.js';
+import countFrontend from './';
 
 const frontend = [
 	'front',

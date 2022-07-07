@@ -1,4 +1,4 @@
-import countBootstrap from './index.js';
+import countBootstrap from './';
 
 const bootstrap = [
 	'bootstrap',

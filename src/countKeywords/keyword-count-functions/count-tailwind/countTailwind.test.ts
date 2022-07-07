@@ -1,4 +1,4 @@
-import countTailwind from './index.js';
+import countTailwind from './';
 
 const tailwind = [
 	'tailwind',

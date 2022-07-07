@@ -1,4 +1,4 @@
-import countGraphql from './index.js';
+import countGraphql from './';
 
 const graphql = [
 	'graphql',

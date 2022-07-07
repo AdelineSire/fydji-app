@@ -1,4 +1,4 @@
-import countSass from './index.js';
+import countSass from './';
 
 const sass = [
 	'SASS',

@@ -1,4 +1,4 @@
-import countKeywords from './index.js';
+import countKeywords from './';
 
 test('return an array of objects containing keyword and count', () => {
 	const str =

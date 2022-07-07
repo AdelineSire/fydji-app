@@ -1,4 +1,4 @@
-import countReact from './index.js';
+import countReact from './';
 
 const react = [
 	'react',

@@ -1,4 +1,4 @@
-import countJQuery from './index.js';
+import countJQuery from './';
 
 const jquery = [
 	'jquery',
