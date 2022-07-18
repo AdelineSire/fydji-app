@@ -1,20 +1,11 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { User } from './models/index.js';
-const createUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const exists = (yield User.find({ email: email }).count()) > 0;
+const createUser = async (email) => {
+    const exists = (await User.find({ email: email }).count()) > 0;
     if (exists === false) {
         const user = new User({ email: email });
         user.save().catch((error) => console.log('error', error));
     }
     const hasBeenCreated = !exists;
     return hasBeenCreated;
-});
+};
 export default createUser;

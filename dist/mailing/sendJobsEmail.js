@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import dotenv from 'dotenv';
 import getJobsContent from './getJobsContent.js';
 import transporter from './transporter.js';
@@ -28,10 +19,10 @@ const sendEmail = (email, subject, content) => {
         }
     });
 };
-const sendJobsEmail = (jobs, subject = 'Les nouvelles offres', users) => __awaiter(void 0, void 0, void 0, function* () {
+const sendJobsEmail = async (jobs, subject = 'Les nouvelles offres', users) => {
     for (const user of users) {
-        const content = yield getJobsContent(jobs, user.email);
+        const content = await getJobsContent(jobs, user.email);
         sendEmail(user.email, subject, content);
     }
-});
+};
 export default sendJobsEmail;
