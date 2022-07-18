@@ -5,8 +5,9 @@
 	"main": "index.ts",
 	"type": "module",
 	"scripts": {
-		"compile": "npm run build && npm start",
+		"compile": "npm run build-dev && npm start",
 		"dev": "nodemon --watch src -e js,ts,json --exec \"npm run compile\"",
+		"build-dev": "tsc",
 		"build": "./node_modules/typescript/bin/tsc",
 		"postbuild": "copyfiles -u 1 src/**/*.handlebars dist/",
 		"start": "node dist/index.js",
