@@ -29,6 +29,16 @@ This repo contains "App", the blue part of the architecture shown below.
 - Sends an email to all registered users
 - Marks job offers as sent in the database to prevent from sending them multiple times
 
+## Technologies
+
+- Language: **TypeScript**
+- Runtime environment: **Node.js**
+- Server framework: **Express**
+- MongoDB object modeling: **Mongoose**
+- template engine: **Handlebars**
+- Node module to send emails: **Nodemailer**
+- Testing Framework: **Jest**
+
 ## Installation
 
 ### Environment variables
