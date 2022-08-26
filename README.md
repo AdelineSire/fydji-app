@@ -1,5 +1,9 @@
 # Fydji
 
+## Application architecture
+
+![architecture diagram](https://drive.google.com/file/d/1XcT1D-Q_Ldf0xmc2-pxUaPAus5C20zZm/view?usp=sharing)
+
 ## Installation
 
 ### Environment variables
