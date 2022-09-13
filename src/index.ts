@@ -8,7 +8,9 @@ import createJobs from './createJobs.js';
 import createUser from './createUser.js';
 import deleteUser from './deleteUser.js';
 import sendJobsEmail from './mailing/sendJobsEmail.js';
-import { User, Job } from './models/index.js';
+import { User as UserModel, Job as JobModel } from './models/index.js';
+import Job from './types/job';
+import User from './types/user';
 
 dotenv.config();
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -59,7 +61,10 @@ app.post('/create/user', async (req, res) => {
 	console.log('has been created', hasBeenCreated);
 	if (hasBeenCreated) {
 		console.log('has been created 2');
-		const newJobs = await Job.find().sort({ sendDate: -1 }).limit(3);
+		// getLastSentJobs
+		const newJobs = (await JobModel.find()
+			.sort({ sendDate: -1 })
+			.limit(3)) as Job[];
 		sendJobsEmail(newJobs, 'Découvrez vos 1ères offres Fydji', [{ email }]);
 	}
 });
@@ -71,10 +76,12 @@ app.get('/unsubscribe/:email', async (req, res) => {
 });
 
 app.get('/send/jobs', async (req, res) => {
-	const newJobs = await Job.find({ sendDate: null });
-	const users = await User.find({});
-	await sendJobsEmail(newJobs, 'Les nouvelles offres', users);
+	// getJobsToSend
+	const newJobs = await JobModel.find({ sendDate: null });
+	const users = (await UserModel.find({})) as User[];
+	await sendJobsEmail(newJobs as Job[], 'Les nouvelles offres', users);
 	const date = new Date();
+	// markAsSent
 	for (const newJob of newJobs) {
 		newJob.sendDate = date;
 		newJob.save();

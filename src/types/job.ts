@@ -1,5 +1,5 @@
 interface Job {
-	toObject(): any;
+	toObject(): any; // not recommanded
 	title: string;
 	url: string;
 	keywords: string[];
