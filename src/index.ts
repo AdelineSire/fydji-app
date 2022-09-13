@@ -62,9 +62,7 @@ app.post('/create/user', async (req, res) => {
 	if (hasBeenCreated) {
 		console.log('has been created 2');
 		// getLastSentJobs
-		const newJobs = (await JobModel.find()
-			.sort({ sendDate: -1 })
-			.limit(3)) as Job[];
+		const newJobs = await JobModel.getLastSentJobs();
 		sendJobsEmail(newJobs, 'Découvrez vos 1ères offres Fydji', [{ email }]);
 	}
 });
@@ -77,15 +75,12 @@ app.get('/unsubscribe/:email', async (req, res) => {
 
 app.get('/send/jobs', async (req, res) => {
 	// getJobsToSend
-	const newJobs = await JobModel.find({ sendDate: null });
+	const newJobs = await JobModel.getJobsToSend();
 	const users = (await UserModel.find({})) as User[];
-	await sendJobsEmail(newJobs as Job[], 'Les nouvelles offres', users);
+	await sendJobsEmail(newJobs, 'Les nouvelles offres', users);
 	const date = new Date();
 	// markAsSent
-	for (const newJob of newJobs) {
-		newJob.sendDate = date;
-		newJob.save();
-	}
+	await JobModel.markAsSent();
 	console.log('done');
 	res.send('Jobs has been sent');
 });
