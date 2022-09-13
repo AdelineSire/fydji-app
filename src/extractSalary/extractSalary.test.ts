@@ -32,11 +32,18 @@ describe('extractSalary', () => {
 			salaryEnd: 55000,
 		});
 	});
-
+	//todo ->
 	test.skip('if entry contains "K€", the corresponding salary is multiplied by 1000', () => {
 		const salary = ' 44.9K€ bruts annuels sur 13 mois.';
 		expect(extractSalary(salary)).toEqual({
 			salaryStart: 44900,
+			salaryEnd: null,
+		});
+	});
+	test('salary is empty string', () => {
+		const salary = '';
+		expect(extractSalary(salary)).toEqual({
+			salaryStart: null,
 			salaryEnd: null,
 		});
 	});
